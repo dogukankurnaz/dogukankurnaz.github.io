@@ -77,6 +77,11 @@ author_education_details:
 
 # Projects
 author_project_details:
+              - project_thumbnail: qrcode.png
+                project_title: WiFi QR 
+                project_description: Scan QR Code with camera and join WiFi connection
+                project_url: https://github.com/dogukankurnaz/WifiQR
+                visibility: true
               - project_thumbnail: xss.jpeg
                 project_title: XSS Scanner
                 project_description: When we scan the given domain with the CURL tool and print payload into it, if it is in it, it scans it again and adds it to the list.
