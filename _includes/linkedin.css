@@ -1,0 +1,12 @@
+.share {
+    text-align: center;
+    display: inline-block;
+    width: 150px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin: 1.5 * 1 * 0;
+    background: #0174b2;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
