@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vampir Köylü Oyunu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: url("https://i.hizliresim.com/mwex49n.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    h1 {
+      color: #fff;
+      font-weight: bold;
+      font-size: 28px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    #playerNamesContainer {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 200px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #gameResult {
+      font-family: monospace;
+      white-space: pre-wrap;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: left;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+    function generateGame() {
+      var userNames = [];
+
+      for (var i = 1; i <= 6; i++) {
+        var nameInput = document.getElementById("playerName" + i);
+        userNames.push(nameInput.value);
+      }
+
+      var gameResult = generateRandomGame(userNames);
+      document.getElementById("gameResult").textContent = gameResult;
+    }
+
+    function generateRandomGame(userNames) {
+      var game = [];
+      var numVampires = 2;
+      var numDoctors = 1;
+      var numPlayers = userNames.length;
+
+      // Oyuncuların rollerini atama
+      for (var i = 0; i < numPlayers; i++) {
+        var role;
+
+        if (i < numVampires) {
+          role = "Vampir";
+        } else if (i < numVampires + numDoctors) {
+          role = "Doktor";
+        } else {
+          role = "Köylü";
+        }
+
+        game.push(userNames[i] + ": " + role);
+      }
+
+      // Rollerin rastgele karıştırılması
+      for (var i = game.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = game[i];
+        game[i] = game[j];
+        game[j] = temp;
+      }
+
+      return game.join("\n");
+    }
+  </script>
+</head>
+<body>
+  <h1>Vampir Köylü Oyunu</h1>
+
+  <div id="playerNamesContainer">
+    <label for="playerName1">Kullanıcı 1 Adı:</label>
+    <input type="text" id="playerName1">
+    <br><br>
+
+    <label for="playerName2">Kullanıcı 2 Adı:</label>
+    <input type="text" id="playerName2">
+    <br><br>
+
+    <label for="playerName3">Kullanıcı 3 Adı:</label>
+    <input type="text" id="playerName3">
+    <br><br>
+
+    <label for="playerName4">Kullanıcı 4 Adı:</label>
+    <input type="text" id="playerName4">
+    <br><br>
+
+    <label for="playerName5">Kullanıcı 5 Adı:</label>
+    <input type="text" id="playerName5">
+    <br><br>
+
+    <label for="playerName6">Kullanıcı 6 Adı:</label>
+    <input type="text" id="playerName6">
+    <br><br>
+  </div>
+
+  <button onclick="generateGame()">Oyunu Oluştur</button>
+
+  <h2>Oyun Sonucu:</h2>
+  <pre id="gameResult"></pre>
+
+</body>
+</html>
