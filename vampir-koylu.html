@@ -69,9 +69,15 @@
   </style>
   <script>
     function generateGame() {
+      var numPlayers = parseInt(document.getElementById("numPlayers").value);
+      if (isNaN(numPlayers) || numPlayers < 2 || numPlayers > 10) {
+        alert("Geçerli bir kullanıcı sayısı giriniz (2-10 arası)!");
+        return;
+      }
+
       var userNames = [];
 
-      for (var i = 1; i <= 6; i++) {
+      for (var i = 1; i <= numPlayers; i++) {
         var nameInput = document.getElementById("playerName" + i);
         userNames.push(nameInput.value);
       }
@@ -82,7 +88,7 @@
 
     function generateRandomGame(userNames) {
       var game = [];
-      var numVampires = 2;
+      var numVampires = Math.min(userNames.length - 1, 2);
       var numDoctors = 1;
       var numPlayers = userNames.length;
 
@@ -116,36 +122,38 @@
 <body>
   <h1>Vampir Köylü Oyunu</h1>
 
-  <div id="playerNamesContainer">
-    <label for="playerName1">Kullanıcı 1 Adı:</label>
-    <input type="text" id="playerName1">
-    <br><br>
+  <label for="numPlayers">Kullanıcı Sayısı:</label>
+  <input type="number" id="numPlayers" min="2" max="10">
+  <br><br>
 
-    <label for="playerName2">Kullanıcı 2 Adı:</label>
-    <input type="text" id="playerName2">
-    <br><br>
-
-    <label for="playerName3">Kullanıcı 3 Adı:</label>
-    <input type="text" id="playerName3">
-    <br><br>
-
-    <label for="playerName4">Kullanıcı 4 Adı:</label>
-    <input type="text" id="playerName4">
-    <br><br>
-
-    <label for="playerName5">Kullanıcı 5 Adı:</label>
-    <input type="text" id="playerName5">
-    <br><br>
-
-    <label for="playerName6">Kullanıcı 6 Adı:</label>
-    <input type="text" id="playerName6">
-    <br><br>
-  </div>
+  <div id="playerNamesContainer"></div>
 
   <button onclick="generateGame()">Oyunu Oluştur</button>
 
   <h2>Oyun Sonucu:</h2>
   <pre id="gameResult"></pre>
 
+  <script>
+    document.getElementById("numPlayers").addEventListener("input", function() {
+      var numPlayers = parseInt(this.value);
+      var container = document.getElementById("playerNamesContainer");
+      container.innerHTML = "";
+
+      for (var i = 1; i <= numPlayers; i++) {
+        var label = document.createElement("label");
+        label.setAttribute("for", "playerName" + i);
+        label.textContent = "Kullanıcı " + i + " Adı:";
+        container.appendChild(label);
+
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("id", "playerName" + i);
+        container.appendChild(input);
+
+        container.appendChild(document.createElement("br"));
+        container.appendChild(document.createElement("br"));
+      }
+    });
+  </script>
 </body>
 </html>
